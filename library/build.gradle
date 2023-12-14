@@ -1,0 +1,40 @@
+plugins {
+    id 'com.android.library'
+}
+
+ext.sdkVer = '4.2.8'
+
+android {
+    namespace 'uni.android.cn.oaid'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 33
+
+        buildConfigField("String", "SDK_VERSION", "\"$sdkVer\"")
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compileOnly files('../app/libs/uniapp-v8-release.aar')
+    compileOnly 'com.alibaba:fastjson:1.2.83'
+
+    implementation ("com.github.gzu-liyujiang:Android_CN_OAID:$sdkVer") {
+        exclude group: 'com.huawei.hms', module: 'ads-identifier'
+        exclude group: 'com.hihonor.mcs', module: 'ads-identifier'
+    }
+}

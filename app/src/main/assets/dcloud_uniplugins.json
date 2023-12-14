@@ -1,0 +1,13 @@
+{
+  "nativePlugins": [
+    {
+      "plugins": [
+        {
+          "type": "module",
+          "name": "Android_CN_OAID",
+          "class": "uni.android.cn.oaid.AndroidCNOAID"
+        }
+      ]
+    }
+  ]
+}

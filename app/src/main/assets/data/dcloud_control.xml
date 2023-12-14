@@ -1,0 +1,5 @@
+<hbuilder debug="true" syncDebug="true">
+<apps>
+    <app appid="应用的APPID" appver=""/>
+</apps>
+</hbuilder>

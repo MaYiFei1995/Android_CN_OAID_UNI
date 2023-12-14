@@ -1,0 +1,73 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'android.cn.oaid.demo'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "android.cn.oaid.demo"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        config {
+            keyAlias '证书别名'
+            keyPassword '别名密钥'
+            storeFile file('证书路径')
+            storePassword '证书密钥'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+        debug {
+            // 离线打包会校验 app_id\dcloud_appkey\signature
+            signingConfig signingConfigs.config
+        }
+        release {
+            signingConfig signingConfigs.config
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    aaptOptions {
+        additionalParameters '--auto-add-overlay'
+        ignoreAssetsPattern "!.svn:!.git:.*:!CVS:!thumbs.db:!picasa.ini:!*.scc:*~"
+    }
+}
+
+dependencies {
+
+    /*uniapp所需库-----------------------开始*/
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.facebook.fresco:fresco:1.13.0'
+    implementation "com.facebook.fresco:animated-gif:1.13.0"
+    /*uniapp所需库-----------------------结束*/
+    // 基座需要，必须添加
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.alibaba:fastjson:1.2.83'
+    implementation 'androidx.webkit:webkit:1.3.0'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    implementation 'androidx.core:core:1.1.0'
+    implementation "androidx.fragment:fragment:1.1.0"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+
+    implementation files('./libs/breakpad-build-release.aar')
+    implementation files('./libs/lib.5plus.base-release.aar')
+    implementation files('./libs/uniapp-v8-release.aar')
+    implementation files('./libs/oaid_sdk_1.0.25.aar')
+
+    implementation project(':library')
+}
